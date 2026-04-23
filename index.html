@@ -22,17 +22,17 @@
           Для школьников и взрослых. Подготовка к ОГЭ и ЕГЭ, базовый и разговорный уровень
         </p>
         <div class="hero__actions">
-          <a href="#contacts" class="btn btn--primary">Записаться на пробный урок</a>
-          <a href="#faq" class="btn btn--ghost">Пройти тестирование</a>
+          <button type="button" class="btn btn--primary" data-open-trial-modal>Записаться на пробный урок</button>
+          <button type="button" class="btn btn--ghost" data-open-test-modal>Пройти тестирование</button>
         </div>
       </div>
       <figure class="hero__portrait">
         <img
-          src="C:/Users/1695272/.cursor/projects/c-Users-1695272-Documents-Cursor-News-search-Unity-School/assets/c__Users_1695272_Documents_____________________Cursor_News_search_Unity_School_photo_2026-04-15_01-22-15.jpg"
+          src="photo_2026-04-24_01-33-14.jpg"
           alt="Преподаватель языковой школы Юнити"
           loading="eager"
         >
-        <figcaption>Мой преподавательский подход: спокойно, понятно, поэтапно.</figcaption>
+        <figcaption>ОПЫТ РАБОТЫ БОЛЕЕ 20 ЛЕТ</figcaption>
       </figure>
     </div>
   </header>
@@ -311,11 +311,112 @@
         </p>
         <div class="hero__actions">
           <a href="#application" class="btn btn--primary">Оставить заявку</a>
-          <a href="#faq" class="btn btn--ghost">Пройти тестирование</a>
+          <button type="button" class="btn btn--ghost" data-open-test-modal>Пройти тестирование</button>
         </div>
       </div>
     </section>
   </main>
+
+  <div class="modal" id="trialModal" aria-hidden="true">
+    <div class="modal__overlay" data-close-trial-modal></div>
+    <div class="modal__dialog" role="dialog" aria-modal="true" aria-labelledby="trialModalTitle">
+      <button type="button" class="modal__close" aria-label="Закрыть" data-close-trial-modal>×</button>
+      <h3 id="trialModalTitle">Записаться на пробный урок</h3>
+      <p class="modal__intro">Оставьте контактные данные — мы свяжемся с вами и согласуем удобное время.</p>
+
+      <form id="trialForm" class="application-form trial-form" novalidate>
+        <label class="form-field">
+          <span>Ваше имя</span>
+          <input type="text" name="name" placeholder="Например, Марина" required>
+        </label>
+
+        <label class="form-field">
+          <span>Email</span>
+          <input type="email" name="email" placeholder="example@mail.ru" required>
+        </label>
+
+        <label class="form-field">
+          <span>Номер телефона</span>
+          <input type="tel" name="phone" placeholder="+7 (___) ___-__-__" required>
+        </label>
+
+        <label class="form-field">
+          <span>Возраст</span>
+          <input type="number" name="age" min="5" max="100" inputmode="numeric" placeholder="Например, 14" required>
+        </label>
+
+        <label class="form-field">
+          <span>Язык</span>
+          <select name="language" required>
+            <option value="">Выберите язык</option>
+            <option value="english">Английский</option>
+            <option value="german">Немецкий</option>
+          </select>
+        </label>
+
+        <label class="form-consent">
+          <input type="checkbox" name="consent" required>
+          <span>Даю согласие на обработку моих персональных данных</span>
+        </label>
+
+        <div class="application-actions">
+          <button type="submit" class="btn btn--primary">Отправить</button>
+        </div>
+        <p class="form-success" id="trialFormSuccess" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal" id="testModal" aria-hidden="true">
+    <div class="modal__overlay" data-close-test-modal></div>
+    <div class="modal__dialog modal__dialog--wide" role="dialog" aria-modal="true" aria-labelledby="testModalTitle">
+      <button type="button" class="modal__close" aria-label="Закрыть" data-close-test-modal>×</button>
+      <h3 id="testModalTitle">Тестирование уровня</h3>
+      <p class="modal__intro">Выберите язык и уровень, затем пройдите 5 вопросов.</p>
+
+      <form id="testSetupForm" class="application-form trial-form" novalidate>
+        <div class="form-grid">
+          <label class="form-field">
+            <span>Язык</span>
+            <select name="language" required>
+              <option value="">Выберите язык</option>
+              <option value="english">Английский</option>
+              <option value="german">Немецкий</option>
+            </select>
+          </label>
+          <label class="form-field">
+            <span>Уровень владения</span>
+            <select name="level" required>
+              <option value="">Выберите уровень</option>
+              <option value="beginner">Начальный</option>
+              <option value="intermediate">Средний</option>
+              <option value="advanced">Продвинутый</option>
+            </select>
+          </label>
+        </div>
+        <div class="application-actions">
+          <button type="submit" class="btn btn--primary">Начать тест</button>
+        </div>
+        <p class="form-success" id="testSetupStatus" role="status" aria-live="polite"></p>
+      </form>
+
+      <div id="quizBlock" class="quiz" hidden>
+        <div class="quiz__topline">
+          <p class="quiz__meta" id="quizMeta"></p>
+          <p class="quiz__timer" id="quizTimer">10:00</p>
+        </div>
+        <div class="quiz__question" id="quizQuestion"></div>
+        <div class="quiz__options" id="quizOptions"></div>
+        <div class="quiz__actions">
+          <button type="button" class="btn btn--ghost" id="quizNextBtn" disabled>Следующий вопрос</button>
+          <button type="button" class="btn btn--primary" id="quizRestartBtn">Выбрать другой уровень</button>
+        </div>
+        <p class="form-success" id="quizResult" role="status" aria-live="polite"></p>
+        <div class="quiz__details" id="quizDetails"></div>
+      </div>
+    </div>
+  </div>
+
   <script src="animations.js"></script>
 </body>
 </html>
